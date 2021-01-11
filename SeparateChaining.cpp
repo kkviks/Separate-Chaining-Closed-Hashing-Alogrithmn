@@ -31,8 +31,8 @@ class Hashmap{
     int capacity;
     int size;
     const double LOAD_FACTOR_LIMIT = 0.7;
-    const int INITIAL_BUCKET_CAPACITY = 32;
-    const int MULTIPLICITY_FACTOR = 4;
+    const int INITIAL_BUCKET_CAPACITY = 16;
+    const int MULTIPLICITY_FACTOR = 2;
 
     private:
     int compress(int x){
@@ -152,6 +152,7 @@ class Hashmap{
             if(curr->key == key){
                 return curr->value;
             }
+            curr = curr->next;
         }
         //Control should not reach here
         assert(false);
@@ -185,7 +186,7 @@ int main(){
     Hashmap<int> m;
     string base = "key";
     cout << m.getLoadFactor() << " " << m.getCapacity() << endl;
-    for(int i=0;i<500;i++){
+    for(int i=0;i<5000;i++){
         string key = base+to_string(i);
         int value = i+1;
         m.insert(key,value);
@@ -197,5 +198,6 @@ int main(){
     m.remove(base+"5");
     m.remove(base+"9");
     cout << "Size: " << m.getSize() << endl;
+    delete &m;
     return 0;
 }
